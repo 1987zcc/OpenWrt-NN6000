@@ -19,9 +19,9 @@
 | Workflow 文件 | Release 标签 | 源码分支 | 配置文件 | 定制 |
 | :-- | :-- | :-- | :-- | :-- |
 | [IPQ60XX-6.12-WIFI.yml](.github/workflows/IPQ60XX-6.12-WIFI.yml) | `IPQ60XX-6.12-WIFI` | `main-nss` | `ipq60xx-6.12-wifi.config` | 重度（`libwrt.sh`） |
-| [IPQ60XX-6.12-WIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-WIFI-LITE.yml) | `IPQ60XX-6.12-WIFI-LITE` | `main-nss` | `ipq60xx-6.12-wifi.config` | 轻量 |
+| [IPQ60XX-6.12-WIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-WIFI-LITE.yml) | `IPQ60XX-6.12-WIFI-LITE` | `main-nss` | `ipq60xx-6.12-wifi.config` | 轻量（`diy-mini.sh`） |
 | [IPQ60XX-6.12-NOWIFI.yml](.github/workflows/IPQ60XX-6.12-NOWIFI.yml) | `IPQ60XX-6.12-NOWIFI` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 重度（`libwrt.sh`） |
-| [IPQ60XX-6.12-NOWIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-NOWIFI-LITE.yml) | `IPQ60XX-6.12-NOWIFI-LITE` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 轻量 |
+| [IPQ60XX-6.12-NOWIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-NOWIFI-LITE.yml) | `IPQ60XX-6.12-NOWIFI-LITE` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 轻量（`diy-mini.sh`） |
 | [IPQ60XX-25.12-WIFI.yml](.github/workflows/IPQ60XX-25.12-WIFI.yml) | `IPQ60XX-25.12-WIFI` | `25.12-nss` | `ipq60xx-6.12-wifi.config` | 轻量 |
 | [IPQ60XX-25.12-NOWIFI.yml](.github/workflows/IPQ60XX-25.12-NOWIFI.yml) | `IPQ60XX-25.12-NOWIFI` | `25.12-nss` | `ipq60xx-6.12-nowifi.config` | 轻量 |
 
@@ -52,8 +52,6 @@ LiBwrt/openwrt-6.x.git
 | [![](https://img.shields.io/badge/IPQ60XX-6.12-WIFI-32C955.svg?logo=openwrt)](.github/workflows/IPQ60XX-6.12-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq60xx-6.12-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ60XX-6.12-WIFI) |
 | [![](https://img.shields.io/badge/IPQ60XX-6.12-WIFI--LITE-32C955.svg?logo=openwrt)](.github/workflows/IPQ60XX-6.12-WIFI-LITE.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq60xx-6.12-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ60XX-6.12-WIFI-LITE) |
 | [![](https://img.shields.io/badge/IPQ60XX-25.12-WIFI-32C955.svg?logo=openwrt)](.github/workflows/IPQ60XX-25.12-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq60xx-6.12-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ60XX-25.12-WIFI) |
-| [![](https://img.shields.io/badge/IPQ807X-WIFI-32C955.svg?logo=openwrt)](.github/workflows/IPQ807X-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq807x.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ807X-WIFI) |
-| [![](https://img.shields.io/badge/X86-64-32C955.svg?logo=openwrt)](.github/workflows/X86-64.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/x86-64.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/X86-64) |
 
 
 ## 定制固件 [![](https://img.shields.io/badge/-项目基本编译教程-FFFFFF.svg)](#定制固件-)
