@@ -20,7 +20,6 @@
 | :-- | :-- | :-- | :-- | :-- |
 | [IPQ60XX-6.12-WIFI.yml](.github/workflows/IPQ60XX-6.12-WIFI.yml) | `IPQ60XX-6.12-WIFI` | `main-nss` | `ipq60xx-6.12-wifi.config` | 重度（`libwrt.sh`） |
 | [IPQ60XX-6.12-WIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-WIFI-LITE.yml) | `IPQ60XX-6.12-WIFI-LITE` | `main-nss` | `ipq60xx-6.12-wifi.config` | 轻量 |
-| [IPQ60XX-6.12-ALL.yml](.github/workflows/IPQ60XX-6.12-ALL.yml) | `IPQ60XX-6.12-ALL` | `main-nss` | `ipq60xx-6.12-wifi.config` | 轻量 + 更新日志 |
 | [IPQ60XX-6.12-NOWIFI.yml](.github/workflows/IPQ60XX-6.12-NOWIFI.yml) | `IPQ60XX-6.12-NOWIFI` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 重度（`libwrt.sh`） |
 | [IPQ60XX-6.12-NOWIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-NOWIFI-LITE.yml) | `IPQ60XX-6.12-NOWIFI-LITE` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 轻量 |
 | [IPQ60XX-25.12-WIFI.yml](.github/workflows/IPQ60XX-25.12-WIFI.yml) | `IPQ60XX-25.12-WIFI` | `25.12-nss` | `ipq60xx-6.12-wifi.config` | 轻量 |
@@ -30,7 +29,7 @@
 
 ```
 LiBwrt/openwrt-6.x.git
-├── main-nss    → 6.12-WIFI / 6.12-WIFI-LITE / 6.12-ALL / 6.12-NOWIFI / 6.12-NOWIFI-LITE
+├── main-nss    → 6.12-WIFI / 6.12-WIFI-LITE / 6.12-NOWIFI / 6.12-NOWIFI-LITE
 └── 25.12-nss   → 25.12-WIFI / 25.12-NOWIFI
 ```
 
@@ -44,7 +43,7 @@ LiBwrt/openwrt-6.x.git
 | 25.12 稳定线 + WiFi | `IPQ60XX-25.12-WIFI` |
 | 25.12 稳定线 + 无 WiFi | `IPQ60XX-25.12-NOWIFI` |
 
-> **已移除的旧 Workflow**：`IPQ60XX-24.10*`、`IPQ60XX-ALL`、`IPQ60XX-NOWIFI`（名称与上游分支不符或功能重复）。
+> **已移除的旧 Workflow**：`IPQ60XX-24.10*`、`IPQ60XX-ALL` / `IPQ60XX-6.12-ALL`、`IPQ60XX-NOWIFI`（名称与上游分支不符或与 LITE 线路重复）。
 
 ## 固件下载 [![](https://img.shields.io/badge/-编译状态及下载链接-FFFFFF.svg)](#固件下载-)
 点击下表中 [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?style=flat&logo=hack-the-box)](https://github.com/haiibo/OpenWrt/releases) 即可跳转到该设备固件下载页面
