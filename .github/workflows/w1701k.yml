@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: 0 20 * * *
 
+permissions:
+  contents: write
+
 env:
   REPO_URL: https://github.com/ZqinKing/immortalwrt.git
   REPO_BRANCH: w1701k

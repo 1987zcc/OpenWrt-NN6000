@@ -2,6 +2,9 @@ name: Build packages
 
 on: workflow_dispatch
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build ${{ matrix.arch }}-${{ matrix.sdk }}
