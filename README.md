@@ -14,76 +14,47 @@
 
 ## IPQ60XX 编译线路说明 [![](https://img.shields.io/badge/-Workflow差异对比-FFFFFF.svg)](#ipq60xx-编译线路说明-)
 
-本仓库为 IPQ60xx（NN6000）提供多条 OpenWrt 云编译线路，核心差异在于 **源码分支、内核版本、定制程度**。下表对比三个主要 Workflow：
+本仓库为 IPQ60xx（NN6000）提供多条 OpenWrt 云编译线路。Workflow 文件名与 **源码分支 + WiFi/无WiFi + 定制程度** 对应：
 
-| 项目 | `IPQ60XX-6.12-WIFI` | `IPQ60XX-24.10-6.12-WIFI` | `IPQ60XX-24.10` |
-| :-- | :-- | :-- | :-- |
-| **Workflow 文件** | [IPQ60XX-6.12-WIFI.yml](.github/workflows/IPQ60XX-6.12-WIFI.yml) | [IPQ60XX-24.10-6.12-WIFI.yml](.github/workflows/IPQ60XX-24.10-6.12-WIFI.yml) | [IPQ60XX-24.10.yml](.github/workflows/IPQ60XX-24.10.yml) |
-| **Release 标签** | `IPQ60XX-6.12-WIFI` | `IPQ60XX-24.10-6.12-WIFI` | `IPQ60XX-24.10` |
-| **源码分支** | `main-nss` | `main-nss` | `25.12-nss` |
-| **内核版本** | 6.12（主线 NSS） | 6.12（主线 NSS，轻定制） | 25.12（稳定线） |
-| **配置文件** | `configs/ipq60xx-6.12-wifi.config` | `configs/ipq60xx-6.12-wifi.config` | `configs/ipq60xx-6.12-wifi.config` |
-| **自定义脚本** | `libwrt.sh`（会执行） | `diy-script.sh`（未执行） | `diy-script.sh`（未执行） |
-| **Runner** | `ubuntu-latest` | `ubuntu-22.04` | `ubuntu-22.04` |
-| **软件包格式** | `.apk` | `.apk` | `.apk` |
-
-### 各线路说明
-
-#### IPQ60XX-6.12-WIFI — 最新 6.12 主线 + 重度定制
-
-- 使用 LiBwrt **`main-nss`** 分支，跟随最新的 6.12 NSS 主线开发。
-- 构建环境通过 **ImmortalWrt 官方初始化脚本**（`init_build_environment.sh`）配置。
-- 会执行 **`libwrt.sh`**，并额外拉取 `sbwml/openwrt_pkgs`（网速测试等插件）。
-- 固件整理阶段打包 **`.apk`** 格式软件包。
-- Release 说明中会输出 **内核版本**（`VERSION_KERNEL`）。
-
-适合：追求 **最新 6.12 内核 + 更多定制插件** 的用户。
-
-#### IPQ60XX-24.10-6.12-WIFI — 6.12 主线 + WiFi（轻定制）
-
-- 使用 LiBwrt **`main-nss`** 分支（原 `24.10-6.12` 分支已下线）。
-- 与 `6.12-WIFI` 共用同一份 WiFi 配置：`ipq60xx-6.12-wifi.config`。
-- 构建环境为 **Ubuntu 22.04 手动清理 + 依赖安装**（`is.gd/depends_ubuntu_2204`）。
-- **不执行** `diy-script.sh`，仅拷贝 `files` 和 `.config`，定制较少。
-- 固件包为 **`.apk`** 格式。
-
-适合：希望 **6.12 内核 + WiFi/NSS**，但不需要 `6.12-WIFI` 重度定制的用户。
-
-#### IPQ60XX-24.10 — 25.12 稳定线
-
-- 使用 LiBwrt **`25.12-nss`** 分支（原 `openwrt-24.10` 分支已下线）。
-- 使用配置文件 **`ipq60xx-6.12-wifi.config`**。
-- 固件带 WiFi 和 NSS 加速。
-- 构建流程与 `24.10-6.12-WIFI` 类似：Ubuntu 22.04、不执行 diy 脚本、`.apk` 包格式。
-
-适合：追求 **25.12 稳定发布线** 的用户。
+| Workflow 文件 | Release 标签 | 源码分支 | 配置文件 | 定制 |
+| :-- | :-- | :-- | :-- | :-- |
+| [IPQ60XX-6.12-WIFI.yml](.github/workflows/IPQ60XX-6.12-WIFI.yml) | `IPQ60XX-6.12-WIFI` | `main-nss` | `ipq60xx-6.12-wifi.config` | 重度（`libwrt.sh`） |
+| [IPQ60XX-6.12-WIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-WIFI-LITE.yml) | `IPQ60XX-6.12-WIFI-LITE` | `main-nss` | `ipq60xx-6.12-wifi.config` | 轻量 |
+| [IPQ60XX-6.12-ALL.yml](.github/workflows/IPQ60XX-6.12-ALL.yml) | `IPQ60XX-6.12-ALL` | `main-nss` | `ipq60xx-6.12-wifi.config` | 轻量 + 更新日志 |
+| [IPQ60XX-6.12-NOWIFI.yml](.github/workflows/IPQ60XX-6.12-NOWIFI.yml) | `IPQ60XX-6.12-NOWIFI` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 重度（`libwrt.sh`） |
+| [IPQ60XX-6.12-NOWIFI-LITE.yml](.github/workflows/IPQ60XX-6.12-NOWIFI-LITE.yml) | `IPQ60XX-6.12-NOWIFI-LITE` | `main-nss` | `ipq60xx-6.12-nowifi.config` | 轻量 |
+| [IPQ60XX-25.12-WIFI.yml](.github/workflows/IPQ60XX-25.12-WIFI.yml) | `IPQ60XX-25.12-WIFI` | `25.12-nss` | `ipq60xx-6.12-wifi.config` | 轻量 |
+| [IPQ60XX-25.12-NOWIFI.yml](.github/workflows/IPQ60XX-25.12-NOWIFI.yml) | `IPQ60XX-25.12-NOWIFI` | `25.12-nss` | `ipq60xx-6.12-nowifi.config` | 轻量 |
 
 ### 分支关系
 
 ```
-LiBwrt/openwrt-6.x.git（当前可用分支）
-├── main-nss          → IPQ60XX-6.12-WIFI / 24.10-6.12-WIFI  (6.12, 定制程度不同)
-└── 25.12-nss         → IPQ60XX-24.10                        (25.12 稳定线)
+LiBwrt/openwrt-6.x.git
+├── main-nss    → 6.12-WIFI / 6.12-WIFI-LITE / 6.12-ALL / 6.12-NOWIFI / 6.12-NOWIFI-LITE
+└── 25.12-nss   → 25.12-WIFI / 25.12-NOWIFI
 ```
 
-> **注意**：上游已移除 `main`、`openwrt-24.10`、`24.10-6.12` 等旧分支，相关 Workflow 已映射到上述可用分支。
+### 如何选择（NN6000）
 
-### 如何选择
-
-| 需求 | 推荐线路 |
+| 需求 | 推荐 Workflow |
 | :-- | :-- |
-| 最新特性、插件多 | `IPQ60XX-6.12-WIFI` |
-| 6.12 内核、轻定制 | `IPQ60XX-24.10-6.12-WIFI` |
-| 25.12 稳定发布线 | `IPQ60XX-24.10` |
+| 最新 6.12 + 插件多 | `IPQ60XX-6.12-WIFI` |
+| 6.12 + WiFi、少定制 | `IPQ60XX-6.12-WIFI-LITE` |
+| 6.12 + 无 WiFi | `IPQ60XX-6.12-NOWIFI` 或 `IPQ60XX-6.12-NOWIFI-LITE` |
+| 25.12 稳定线 + WiFi | `IPQ60XX-25.12-WIFI` |
+| 25.12 稳定线 + 无 WiFi | `IPQ60XX-25.12-NOWIFI` |
+
+> **已移除的旧 Workflow**：`IPQ60XX-24.10*`、`IPQ60XX-ALL`、`IPQ60XX-NOWIFI`（名称与上游分支不符或功能重复）。
 
 ## 固件下载 [![](https://img.shields.io/badge/-编译状态及下载链接-FFFFFF.svg)](#固件下载-)
 点击下表中 [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?style=flat&logo=hack-the-box)](https://github.com/haiibo/OpenWrt/releases) 即可跳转到该设备固件下载页面
-| 平台+设备名称 | 固件编译状态 | 配置文件 | 固件下载 |
-| :-------------: | :-------------: | :-------------: | :-------------: |
-| [![](https://img.shields.io/badge/IPQ60XX-ALL-32C955.svg?logo=openwrt)](https://github.com/breeze303/openwrt-ci/blob/main/.github/workflows/IPQ60XX-ALL.yml) | [![](https://github.com/breeze303/openwrt-ci/actions/workflows/IPQ60XX-ALL.yml/badge.svg)](https://github.com/breeze303/openwrt-ci/actions/workflows/IPQ60XX-ALL.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](https://github.com/breeze303/openwrt-ci/blob/main/configs/ipq60xx-all.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](https://github.com/breeze303/openwrt-ci/releases/IPQ60XX-ALL) |
-| [![](https://img.shields.io/badge/IPQ60XX-NOWIFI-32C955.svg?logo=openwrt)](https://github.com/breeze303/openwrt-ci/blob/main/.github/workflows/IPQ60XX-NOWIFI.yml) | [![](https://github.com/breeze303/openwrt-ci/actions/workflows/IPQ60XX-NOWIFI.yml/badge.svg)](https://github.com/breeze303/openwrt-ci/actions/workflows/IPQ60XX-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](https://github.com/breeze303/openwrt-ci/blob/main/configs/ipq60xx.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](https://github.com/breeze303/openwrt-ci/releases/IPQ60XX-NOWIFI) |
-| [![](https://img.shields.io/badge/IPQ807X-WIFI-32C955.svg?logo=openwrt)](https://github.com/breeze303/OpenWrt/blob/main/.github/workflows/IPQ807X-WIFI.yml) | [![](https://github.com/breeze303/OpenWrt/actions/workflows/IPQ807X-WIFI.yml/badge.svg)](https://github.com/breeze303/OpenWrt/actions/workflows/IPQ807X-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](https://github.com/breeze303/OpenWrt/blob/main/configs/ipq807x-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](https://github.com/breeze303/OpenWrt/releases/IPQ807X-WIFI) |
-| [![](https://img.shields.io/badge/X86-64-32C955.svg?logo=openwrt)](https://github.com/breeze303/openwrt-ci/blob/main/.github/workflows/X86-64.yml) | [![](https://github.com/breeze303/openwrt-ci/actions/workflows/X86-64.yml/badge.svg)](https://github.com/breeze303/openwrt-ci/actions/workflows/X86-64.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](https://github.com/breeze303/openwrt-ci/blob/main/configs/x86-64.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](https://github.com/breeze303/openwrt-ci/releases/tag/X86-64) |
+| 平台+设备名称 | 配置文件 | 固件下载 |
+| :-------------: | :-------------: | :-------------: |
+| [![](https://img.shields.io/badge/IPQ60XX-6.12-WIFI-32C955.svg?logo=openwrt)](.github/workflows/IPQ60XX-6.12-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq60xx-6.12-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ60XX-6.12-WIFI) |
+| [![](https://img.shields.io/badge/IPQ60XX-6.12-WIFI--LITE-32C955.svg?logo=openwrt)](.github/workflows/IPQ60XX-6.12-WIFI-LITE.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq60xx-6.12-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ60XX-6.12-WIFI-LITE) |
+| [![](https://img.shields.io/badge/IPQ60XX-25.12-WIFI-32C955.svg?logo=openwrt)](.github/workflows/IPQ60XX-25.12-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq60xx-6.12-wifi.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ60XX-25.12-WIFI) |
+| [![](https://img.shields.io/badge/IPQ807X-WIFI-32C955.svg?logo=openwrt)](.github/workflows/IPQ807X-WIFI.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/ipq807x.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/IPQ807X-WIFI) |
+| [![](https://img.shields.io/badge/X86-64-32C955.svg?logo=openwrt)](.github/workflows/X86-64.yml) | [![](https://img.shields.io/badge/编译-配置-orange.svg?logo=apache-spark)](configs/x86-64.config) | [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?logo=hack-the-box)](../../releases/tag/X86-64) |
 
 
 ## 定制固件 [![](https://img.shields.io/badge/-项目基本编译教程-FFFFFF.svg)](#定制固件-)
