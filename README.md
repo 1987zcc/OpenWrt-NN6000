@@ -12,6 +12,71 @@
 - 源码：[immortalwrt](https://github.com/immortalwrt/immortalwrt)
 - 云编译来源：https://github.com/haiibo/OpenWrt
 
+## IPQ60XX 编译线路说明 [![](https://img.shields.io/badge/-Workflow差异对比-FFFFFF.svg)](#ipq60xx-编译线路说明-)
+
+本仓库为 IPQ60xx（NN6000）提供多条 OpenWrt 云编译线路，核心差异在于 **源码分支、内核版本、定制程度**。下表对比三个主要 Workflow：
+
+| 项目 | `IPQ60XX-6.12-WIFI` | `IPQ60XX-24.10-6.12-WIFI` | `IPQ60XX-24.10` |
+| :-- | :-- | :-- | :-- |
+| **Workflow 文件** | [IPQ60XX-6.12-WIFI.yml](.github/workflows/IPQ60XX-6.12-WIFI.yml) | [IPQ60XX-24.10-6.12-WIFI.yml](.github/workflows/IPQ60XX-24.10-6.12-WIFI.yml) | [IPQ60XX-24.10.yml](.github/workflows/IPQ60XX-24.10.yml) |
+| **Release 标签** | `IPQ60XX-6.12-WIFI` | `IPQ60XX-24.10-6.12-WIFI` | `IPQ60XX-24.10` |
+| **源码分支** | `main-nss` | `24.10-6.12` | `openwrt-24.10` |
+| **内核版本** | 6.12（主线 NSS） | 6.12（基于 24.10） | 6.6（官方 24.10） |
+| **配置文件** | `configs/ipq60xx-6.12-wifi.config` | `configs/ipq60xx-6.12-wifi.config` | `configs/ipq60xx.config` |
+| **自定义脚本** | `libwrt.sh`（会执行） | `diy-script.sh`（未执行） | `diy-script.sh`（未执行） |
+| **Runner** | `ubuntu-latest` | `ubuntu-22.04` | `ubuntu-22.04` |
+| **软件包格式** | `.apk` | `.ipk` | `.ipk` |
+
+### 各线路说明
+
+#### IPQ60XX-6.12-WIFI — 最新 6.12 主线 + 重度定制
+
+- 使用 LiBwrt **`main-nss`** 分支，跟随最新的 6.12 NSS 主线开发。
+- 构建环境通过 **ImmortalWrt 官方初始化脚本**（`init_build_environment.sh`）配置。
+- 会执行 **`libwrt.sh`**，并额外拉取 `sbwml/openwrt_pkgs`（网速测试等插件）。
+- 固件整理阶段打包 **`.apk`** 格式软件包。
+- Release 说明中会输出 **内核版本**（`VERSION_KERNEL`）。
+
+适合：追求 **最新 6.12 内核 + 更多定制插件** 的用户。
+
+#### IPQ60XX-24.10-6.12-WIFI — 24.10 体系 + 6.12 内核 + WiFi
+
+- 使用 LiBwrt **`24.10-6.12`** 分支，在 OpenWrt **24.10 代码基线** 上升级到 **6.12 内核**。
+- 与 `6.12-WIFI` 共用同一份 WiFi 配置：`ipq60xx-6.12-wifi.config`。
+- 构建环境为 **Ubuntu 22.04 手动清理 + 依赖安装**（`is.gd/depends_ubuntu_2204`）。
+- **不执行** `diy-script.sh`，仅拷贝 `files` 和 `.config`，定制较少。
+- 固件包为传统 **`.ipk`** 格式。
+
+适合：希望 **24.10 软件栈 + 6.12 内核 + WiFi/NSS**，但不需要 `6.12-WIFI` 重度定制的用户。
+
+#### IPQ60XX-24.10 — 官方 24.10 稳定版（6.6 内核）
+
+- 使用 LiBwrt **`openwrt-24.10`** 分支，即 **官方 24.10 稳定线**。
+- 使用独立配置文件 **`ipq60xx.config`**（与两个 WiFi 线路不同）。
+- 固件基于 **6.6 内核**，带 WiFi 和 NSS 加速。
+- 构建流程与 `24.10-6.12-WIFI` 类似：Ubuntu 22.04、不执行 diy 脚本、`.ipk` 包格式。
+
+适合：追求 **24.10 官方稳定内核（6.6）**、不追 6.12 的用户。
+
+### 分支关系
+
+```
+LiBwrt/openwrt-6.x.git
+├── main-nss          → IPQ60XX-6.12-WIFI        (6.12, 重度定制)
+├── 24.10-6.12        → IPQ60XX-24.10-6.12-WIFI  (6.12, 轻定制)
+└── openwrt-24.10     → IPQ60XX-24.10            (6.6,  轻定制)
+```
+
+### 如何选择
+
+| 需求 | 推荐线路 |
+| :-- | :-- |
+| 最新特性、插件多 | `IPQ60XX-6.12-WIFI` |
+| 24.10 生态 + 新内核 6.12 | `IPQ60XX-24.10-6.12-WIFI` |
+| 官方 24.10 稳定、内核 6.6 | `IPQ60XX-24.10` |
+
+> **注意**：`IPQ60XX-24.10` 依赖 `configs/ipq60xx.config`，若该文件不存在需自行添加后再编译。
+
 ## 固件下载 [![](https://img.shields.io/badge/-编译状态及下载链接-FFFFFF.svg)](#固件下载-)
 点击下表中 [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?style=flat&logo=hack-the-box)](https://github.com/haiibo/OpenWrt/releases) 即可跳转到该设备固件下载页面
 | 平台+设备名称 | 固件编译状态 | 配置文件 | 固件下载 |
